@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind-Like</title>         
+    <script src="scripts.js" defer></script>
+</head>
+
+<body class="ff-[Inter, sans-serif] bc-[blueviolet] fc-[white]">    
+
+    <!--
+        This is another way of defining the styles and creating copy,
+        later you can use 'copyfrom' attribute and pass 'code' as value
+        to copy this style.
+    -->
+    <x copyto="code" class="bc-[#333] p-[1px 8px 2px 8px] ff-[monospace] fs-[13px] br-[4px]" hidden></x>
+
+    <div class="p-[1rem] wx-[100vw] hn-[100vh]">
+
+        <div class="mb-[1rem]">
+            <h1>Tailwind-Like</h1>
+            <small>A simple implementation which is inspired from <b>Tailwind CSS</b></small>
+        </div>
+
+        <div class="fc-[black] d-[grid] gtc-[repeat(auto-fit, minmax(300px, 1fr))] g-[1rem]">
+
+            <div copyto="div-1" class="c-[default] p-[1rem] mb-[1rem] br-[0.5rem] bs-[1px 1px 4px 3px #0002] bc-[#def] tr-[background 300ms ease-in] h:bc-[transparent] h:fc-[white] fw:bc-[royalblue] fw:fc-[white] d-[flex] g-[1rem]">
+                <img copyto="img" class="w-[40px] h-[40px] br-[50%] of-[cover] p-[2px] bs-[0 0 2px 3px #fff]"
+                    src="https://randomuser.me/api/portraits/men/90.jpg"
+                    alt="">
+                <div copyto="div-2" class="d-[flex] fd-[column] f-[1]">
+                    <b>John Doe</b>
+                    <small copyto="small" class="fs-[0.7rem] o-[0.5]">Data Analyst</small>
+                    <p copyto="p" class="mt-[1rem] fs-[0.85rem] lh-[1.2rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit. At facilis ab, debitis facere, beatae doloribus molestias quisquam vero ratione, vel illum nisi corporis architecto. Minima, iste repellendus est necessitatibus consectetur aspernatur quas qui porro architecto tempore sed dolorem libero veniam quaerat suscipit illo obcaecati delectus culpa placeat impedit esse! Maxime!</p>
+                        <a copyto="a" class="td-[none] fc-[inherit] fs-09 mt-[1rem] fw-[500]" href="#">more ...</a>
+                </div>
+            </div>        
+
+            <div copyfrom="div-1">
+                <img copyfrom="img"
+                    src="https://randomuser.me/api/portraits/women/44.jpg"
+                    alt="">
+                <div copyfrom="div-2">
+                    <b>Mary Fake</b>
+                    <small copyfrom="small">Accountant</small>
+                    <p copyfrom="p">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo magnam maiores enim facilis perspiciatis quam eum dolorum provident, dolores non tempore cupiditate ipsum harum delectus laborum quasi officia ab beatae perferendis. Dolorum hic ex amet deleniti? Velit, odit quaerat hic dignissimos aut libero ipsum nulla, repudiandae similique nostrum assumenda vero.</p>
+                    <a copyfrom="a" href="#">more ...</a>
+                </div>
+            </div>
+
+            <div copyfrom="div-1">
+                <img copyfrom="img"
+                    src="https://randomuser.me/api/portraits/lego/2.jpg"
+                    alt="">
+                <div copyfrom="div-2">
+                    <b>Iam Cartoon</b>
+                    <small copyfrom="small">Lego Manager</small>
+                    <p copyfrom="p">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo magnam maiores enim facilis perspiciatis quam eum dolorum provident, dolores non tempore cupiditate ipsum harum delectus laborum quasi officia ab beatae perferendis. Dolorum hic ex amet deleniti? Velit, odit quaerat hic dignissimos aut libero ipsum nulla, repudiandae similique nostrum assumenda vero.</p>
+                    <a copyfrom="a" href="#">more ...</a>
+                </div>
+            </div>
+
+        </div>
+        
+        <p class="lh-[1.5rem] ti-[2rem]">One thing, which is very cool and you don't have in <b>Tailwind CSS</b> is the attributes - <code copyfrom="code">copyto</code> and <code copyfrom="code">copyfrom</code>. You define the style on the element and use the 'copyto' attribute to copy the styles in memory, and when you use the attribute <code copyfrom="code">copyfrom</code> and pass the value same as the <code copyfrom="code">copyto</code>, the styles are replicated.</p>
+        
+        <h3 class="mt-[1rem] lg-[45deg,forestgreen 50%,blueviolet] p-[0.75rem 1rem] br-[12px]">Thought process behind making this?</h3>        
+        
+        <ul class="ml-[1rem] mt-[1rem] lh-[1.25rem] fs-[0.8rem]">
+            
+            <li copyto="li" class="mb-[0.25rem]">To create something like Tailwind CSS, but with a little difference.</li>
+            
+            <li copyfrom="li">CSS styles are abbreviated into letters for each word, for eg: <code copyfrom="code">text-align</code> translates to <code copyfrom="code">ta</code> and the value is passed within square brackets like <code copyfrom="code">ta-[right]</code>.</li>
+            
+            <li copyfrom="li">I wanted to avoid repeating same styles for similar elements, like the one above in cards, I have defined styles only for the first one and the later are just copies. Advantage being the new styles when changed are automatically applied not needing to change for other elements, just like classes.</li>
+            
+            <li copyfrom="li">Whatever styles you define, they are transformed into classes and applied.</li>
+            
+            <li copyfrom="li">Even the <code copyfrom="code">hover</code>, <code copyfrom="code">active</code>, <code copyfrom="code">focus</code>, <code copyfrom="code">focus-within</code> element states can be defined.</li>
+
+            <li copyfrom="li">This complete page is styled using no external stylesheet or inline styles.</li>
+        </ul>
+        
+        <button class="mt-[1rem] c-[pointer] p-[0.5rem 1rem] br-[6px] fw-[600] b-[1px solid transparent] fs-[14px] bc-[white] tr-[300ms ease-in-out] h:bc-[black] h:fc-[white] a:o-[0.5]">This is a sample button with hover and active states</button>
+    </div>    
+</body>
+</html>
