@@ -182,6 +182,8 @@ function getStyle(style, value) {
     else if (style == "o-") return `opacity:${value}`;
     else if (style == "p-") return `padding:${value}`;
     else if (style == "g-") return `gap:${value}`;
+    else if (style == "t-") return `transform:${value}`;
+    else if (style == "to-") return `transform-origin:${value}`;
     else "";
 }
 
