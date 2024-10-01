@@ -183,7 +183,11 @@ function getStyle(style, value) {
     else if (style == "p-") return `padding:${value}`;
     else if (style == "g-") return `gap:${value}`;
     else if (style == "t-") return `transform:${value}`;
+    else if (style == "z-") return `z-index:${value}`;
     else if (style == "to-") return `transform-origin:${value}`;
+    else if (style == "ls-") return `letter-spacing:${value}`;
+    else if (style == "ws-") return `whitespace:${value}`;
+    else if (style == "ps-") return `position:${value}`;
     else "";
 }
 
