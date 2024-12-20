@@ -1,4 +1,4 @@
-const classCopies = [];
+const classCopies = []
 
 function copyTo() {
     const from = document.querySelectorAll('[copyto]');
