@@ -1,2 +1,2 @@
 # TailwindLike
-A simple implementation which is inspired from Tailwind CSS
+A simple implementation which is inspired from Tailwind CSS.
