@@ -1,67 +1,98 @@
-let startX = 0;
-let startY = 0;
-let endX = 0;
-let endY = 0;
-let isMouseDown = false;
+let initialDistance = 0;
+let isZooming = false;
+let isPanning = false;
+let currentScale = 1; // Keep track of the zoom scale
+let zoomOutThreshold = 0.5; // Define zoom out threshold for zoomed-out state
+let isZoomedOut = false;
+let startTouchX = 0;
+let endTouchX = 0;
+let isSwipeDetected = false;
 
-function touchStartHandler(e) {
-    if (e.touches.length > 1) return;
-    const touch = e.touches[0];
-    startX = touch.pageX;
-    startY = touch.pageY;
+// Function to calculate the distance between two touch points
+function getTouchDistance(touch1, touch2) {
+  const dx = touch1.pageX - touch2.pageX;
+  const dy = touch1.pageY - touch2.pageY;
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
-function touchEndHandler(e) {
-    if (e.changedTouches.length > 1) return;
-    const touch = e.changedTouches[0];
-    endX = touch.pageX;
-    endY = touch.pageY;
-
-    // console.log(detectSwipeDirection());
+// Detect if the user is panning (touch or mouse dragging)
+function detectPanning(event) {
+  if (event.type === 'touchmove' || event.type === 'mousemove') {
+    isPanning = true;
+  }
 }
 
-function mouseDownHandler(e) {
-    isMouseDown = true;
-    startX = e.pageX;
-    startY = e.pageY;
+// Reset the panning state
+function resetPanningState() {
+  isPanning = false;
 }
 
-function mouseMoveHandler(e) {
-    if (!isMouseDown) return;
-    endX = e.pageX;
-    endY = e.pageY;
+// Touch start event handler (for pinch/zoom detection)
+function touchStartHandler(event) {
+  if (event.touches.length === 2) {
+    initialDistance = getTouchDistance(event.touches[0], event.touches[1]);
+    isZooming = true; // Pinch started
+  } else if (event.touches.length === 1) {
+    // Start tracking swipe gesture when one finger is used
+    startTouchX = event.touches[0].pageX;
+  }
 }
 
-function mouseUpHandler(e) {
-    if (!isMouseDown) return;
-    endX = e.pageX;
-    endY = e.pageY;
-    isMouseDown = false;
+// Touch move event handler (for pinch/zoom detection)
+function touchMoveHandler(event) {
+  if (isZooming && event.touches.length === 2) {
+    const currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
+    const zoomFactor = currentDistance / initialDistance;
 
-    // console.log(detectSwipeDirection());
-}
-
-function detectSwipeDirection() {
-    const xDiff = endX - startX;
-    const yDiff = endY - startY;
-
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {
-        if (xDiff > 0) {
-            return "right";
-        } else {
-            return "left";
-        }
-    } else {
-        if (yDiff > 0) {
-            return "down";
-        } else {
-            return "up";
-        }
+    if (zoomFactor > 1) {
+      isZoomedOut = false;
+    } else if (zoomFactor < 1) {
+      if (zoomFactor < zoomOutThreshold) {
+        isZoomedOut = true; // Consider as zoomed out if below threshold
+      }
     }
+
+    initialDistance = currentDistance; // Update the initial distance for the next move
+  } else if (event.touches.length === 1) {
+    // Track swipe only if the user is not zooming
+    endTouchX = event.touches[0].pageX;
+    isSwipeDetected = Math.abs(endTouchX - startTouchX) > 50; // Threshold for swipe distance
+  }
 }
 
-document.addEventListener("touchstart", touchStartHandler, false);
-document.addEventListener("touchend", touchEndHandler, false);
-document.addEventListener("mousedown", mouseDownHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
-document.addEventListener("mouseup", mouseUpHandler, false);
+// Touch end event handler (end of pinch gesture or swipe gesture)
+function touchEndHandler(event) {
+  if (event.touches.length < 2) {
+    isZooming = false; // End of pinch gesture
+  }
+
+  if (isSwipeDetected && !isZooming && !isZoomedOut && !isPanning) {
+    if (endTouchX > startTouchX) {
+      changeSlideshow('right'); // Right swipe (e.g., next image)
+    } else if (endTouchX < startTouchX) {
+      changeSlideshow('left'); // Left swipe (e.g., previous image)
+    }
+  }
+
+  // Reset swipe detection
+  isSwipeDetected = false;
+  resetPanningState();
+}
+
+// Mouse events for panning detection (for desktop users)
+function mouseMoveHandler(event) {
+  detectPanning(event);
+}
+
+function mouseUpHandler(event) {
+  resetPanningState();
+}
+
+// Add event listeners
+document.addEventListener('touchstart', touchStartHandler, false);
+document.addEventListener('touchmove', touchMoveHandler, false);
+document.addEventListener('touchend', touchEndHandler, false);
+
+// Mouse-based event listeners for panning detection (for desktop users)
+document.addEventListener('mousemove', mouseMoveHandler, false);
+document.addEventListener('mouseup', mouseUpHandler, false);
