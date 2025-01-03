@@ -5,6 +5,7 @@ let currentSlide = 0;
 let isZooming = false;
 
 window.addEventListener('touchstart', e => {
+    if (isZooming) return;
     isZooming = e.touches.length > 1;
 })
 
