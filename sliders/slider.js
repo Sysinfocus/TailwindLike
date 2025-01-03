@@ -5,12 +5,14 @@ let endY = 0;
 let isMouseDown = false;
 
 function touchStartHandler(e) {
+    if (e.touches.length > 1) return;
     const touch = e.touches[0];
     startX = touch.pageX;
     startY = touch.pageY;
 }
 
 function touchEndHandler(e) {
+    if (e.changedTouches.length > 1) return;
     const touch = e.changedTouches[0];
     endX = touch.pageX;
     endY = touch.pageY;
