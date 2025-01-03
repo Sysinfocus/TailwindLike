@@ -108,8 +108,6 @@ let zoomScale = 1; // Initial zoom scale
 const zoomOutFactor = 0.8; // Factor by which to zoom out on double-tap/click
 const zoomInFactor = 1.2; // Factor to zoom in (for reference)
 
-const zoomOutThreshold = 0.5; // Define the minimum zoom scale to consider it "zoomed out"
-
 // Function to apply zoom (scaling the content)
 function applyZoom(scale) {
   document.body.style.transform = `scale(${scale})`;
