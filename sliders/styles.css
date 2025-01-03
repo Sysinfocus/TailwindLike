@@ -1,6 +1,6 @@
 * { margin:0; padding:0; box-sizing: border-box; }
 body { font-family: Inter, sans-serif; font-size: 16px }
-.page { width:100vw; height: 100vh; display: flex; place-content: center; place-items: center; background-color: #000; color: #eee; padding: 1rem; }
+.page { width:100vw; height: 100vh; display: flex; place-content: center; place-items: center; background-color: #000; color: #eee }
 .image-slider { position: relative; box-shadow: 0 0 8px 8px #9996; width: 100%; height: 100%; overflow: hidden; overflow-y: auto; border-radius: 1rem }
 .image-slider section { position: absolute; visibility: collapse;}
 .image-slider section .img { display: block; width:100%; height: 100%; object-fit: cover; user-select: none; pointer-events: none; }
