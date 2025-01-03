@@ -29,6 +29,8 @@ function resetPanningState() {
 
 // Touch start event handler (for pinch/zoom detection)
 function touchStartHandler(event) {
+  if (zoomScale != 0) return;
+
   if (event.touches.length === 2) {
     initialDistance = getTouchDistance(event.touches[0], event.touches[1]);
     isZooming = true; // Pinch started
@@ -127,5 +129,5 @@ function handleDoubleTapClick(event) {
 }
 
 // Add event listeners for both touch and mouse events
-document.addEventListener('touchstart', handleDoubleTapClick, false);  // For mobile
+// document.addEventListener('touchstart', handleDoubleTapClick, false);  // For mobile
 document.addEventListener('click', handleDoubleTapClick, false);       // For desktop
