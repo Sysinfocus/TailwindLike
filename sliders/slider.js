@@ -29,7 +29,10 @@ function resetPanningState() {
 
 // Touch start event handler (for pinch/zoom detection)
 function touchStartHandler(event) {
-  if (zoomScale != 0) return;
+  if (zoomScale != 1) {
+    handleDoubleTapClick(event);
+    return;
+  }
 
   if (event.touches.length === 2) {
     initialDistance = getTouchDistance(event.touches[0], event.touches[1]);
