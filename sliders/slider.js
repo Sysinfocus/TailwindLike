@@ -116,25 +116,16 @@ function handleDoubleTapClick(event) {
   const tapDifference = currentTime - lastTapTime;
 
   if (tapDifference < 300) { // If two taps/clicks occur within 300ms, it's a double-tap/click
-    console.log('Double tap/click detected! Zooming out.');
-
-    // Zoom out
     zoomScale = zoomScale * zoomOutFactor;
-
-    // Ensure we don't zoom out too far
     if (zoomScale < zoomOutThreshold) {
       zoomScale = zoomOutThreshold;
     }
 
     applyZoom(zoomScale); // Apply the zoom transformation
   }
-
-  // Update the last tap time
   lastTapTime = currentTime;
 }
 
 // Add event listeners for both touch and mouse events
 document.addEventListener('touchstart', handleDoubleTapClick, false);  // For mobile
 document.addEventListener('click', handleDoubleTapClick, false);       // For desktop
-
-// You can also use a pinch detection and other methods to zoom in/out based on other gestures, if needed.
