@@ -26,3 +26,5 @@ function changeSlideshow() {
 }
 
 slides[currentSlide].classList.add("slideLeft");
+
+document.querySelector(".title").addEventListener("click", () => location.reload());
