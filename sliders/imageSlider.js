@@ -2,7 +2,10 @@ const slides = document.querySelectorAll("section")
 const totalSlides = slides.length;
 let currentSlide = 0;
 
-window.addEventListener('touchend', changeSlideshow);
+window.addEventListener('touchend', e => {
+    if (e.touches.length > 1) return;
+    changeSlideshow()
+});
 window.addEventListener('mouseup', changeSlideshow);
 
 function changeSlideshow() {
