@@ -8,6 +8,11 @@ window.addEventListener('touchstart', e => {
     isZooming = e.touches.length > 1;
 })
 
+window.addEventListener('touchmove', e => {
+    if (isZooming && e.touches.length > 1)
+        return;
+})
+
 window.addEventListener('touchend', e => {
     if (!isZooming) changeSlideshow();
     if (isZooming && e.touches.length < 2) isZooming = false;
