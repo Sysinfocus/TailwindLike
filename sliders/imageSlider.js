@@ -15,7 +15,10 @@ window.addEventListener('touchmove', e => {
 
 window.addEventListener('touchend', e => {
     if (!isZooming) changeSlideshow();
-    if (isZooming && e.touches.length < 2) isZooming = false;
+});
+
+window.addEventListener('doubleclick', e => {
+    isZooming = false;
 });
 
 window.addEventListener('mouseup', changeSlideshow);
