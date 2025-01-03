@@ -31,6 +31,7 @@ function resetPanningState() {
 function touchStartHandler(event) {
   if (zoomScale != 1) {
     handleDoubleTapClick(event);
+    zoomScale = 1;
     return;
   }
 
