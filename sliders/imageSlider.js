@@ -2,13 +2,21 @@ const slides = document.querySelectorAll("section")
 const totalSlides = slides.length;
 let currentSlide = 0;
 
+let isZooming = false;
+
+window.addEventListener('touchstart', e => {
+    isZooming = e.touches.length > 1;
+})
+
 window.addEventListener('touchend', e => {
-    if (e.touches.length > 1) return;
-    changeSlideshow()
+    if (!isZooming) changeSlideshow();
+    if (isZooming && e.touches.length < 2) isZooming = false;
 });
+
 window.addEventListener('mouseup', changeSlideshow);
 
 function changeSlideshow() {
+    if (isZooming) return;
     let dir = detectSwipeDirection();
     let current = slides[currentSlide];
     if (dir === "right") {
