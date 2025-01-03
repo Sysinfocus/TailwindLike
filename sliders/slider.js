@@ -96,3 +96,45 @@ document.addEventListener('touchend', touchEndHandler, false);
 // Mouse-based event listeners for panning detection (for desktop users)
 document.addEventListener('mousemove', mouseMoveHandler, false);
 document.addEventListener('mouseup', mouseUpHandler, false);
+
+let lastTapTime = 0;
+let zoomScale = 1; // Initial zoom scale
+const zoomOutFactor = 0.8; // Factor by which to zoom out on double-tap/click
+const zoomInFactor = 1.2; // Factor to zoom in (for reference)
+
+const zoomOutThreshold = 0.5; // Define the minimum zoom scale to consider it "zoomed out"
+
+// Function to apply zoom (scaling the content)
+function applyZoom(scale) {
+  document.body.style.transform = `scale(${scale})`;
+  document.body.style.transformOrigin = 'center center'; // Keep zoom centered
+}
+
+// Function to handle double-tap (touch) or double-click (mouse)
+function handleDoubleTapClick(event) {
+  const currentTime = new Date().getTime();
+  const tapDifference = currentTime - lastTapTime;
+
+  if (tapDifference < 300) { // If two taps/clicks occur within 300ms, it's a double-tap/click
+    console.log('Double tap/click detected! Zooming out.');
+
+    // Zoom out
+    zoomScale = zoomScale * zoomOutFactor;
+
+    // Ensure we don't zoom out too far
+    if (zoomScale < zoomOutThreshold) {
+      zoomScale = zoomOutThreshold;
+    }
+
+    applyZoom(zoomScale); // Apply the zoom transformation
+  }
+
+  // Update the last tap time
+  lastTapTime = currentTime;
+}
+
+// Add event listeners for both touch and mouse events
+document.addEventListener('touchstart', handleDoubleTapClick, false);  // For mobile
+document.addEventListener('click', handleDoubleTapClick, false);       // For desktop
+
+// You can also use a pinch detection and other methods to zoom in/out based on other gestures, if needed.
